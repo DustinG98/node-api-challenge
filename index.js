@@ -14,11 +14,20 @@ Go code!
 */
 
 const express = require("express")
+const cors = require('cors')
 
 const server = express()
 
+
 const projectsRouter = require('./routes/projectsRouter')
 const actionsRouter = require('./routes/actionsRouter')
+
+const corsOptions = {
+    origin: "*",
+    methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
+server.use(cors(corsOptions))
+
 
 server.use(express.json())
 server.use(logger)
