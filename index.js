@@ -18,6 +18,7 @@ const express = require("express")
 const server = express()
 
 const projectsRouter = require('./routes/projectsRouter')
+const actionsRouter = require('./routes/actionsRouter')
 
 server.use(express.json())
 server.use(logger)
@@ -33,6 +34,7 @@ function logger (req, res, next) {
 }
 
 server.use('/api/projects', projectsRouter)
+server.use('/api/actions', actionsRouter)
 
 server.listen(5000, () => {
     console.log("server is running")
