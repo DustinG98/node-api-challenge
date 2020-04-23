@@ -12,3 +12,39 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Go code!
 */
+
+const express = require("express")
+const cors = require('cors')
+
+const server = express()
+
+
+const projectsRouter = require('./routes/projectsRouter')
+const actionsRouter = require('./routes/actionsRouter')
+
+const corsOptions = {
+    origin: "*",
+    methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
+server.use(cors(corsOptions))
+
+
+server.use(express.json())
+server.use(logger)
+
+
+function logger (req, res, next) {
+    console.log(
+        `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
+            'Origin'
+            )}`
+            )
+            next();
+}
+
+server.use('/api/projects', projectsRouter)
+server.use('/api/actions', actionsRouter)
+
+server.listen(5000, () => {
+    console.log("server is running")
+})
